@@ -9,7 +9,6 @@ from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion, PoseWithCova
 from move_base_msgs.msg import MoveBaseGoal
 from std_msgs.msg import Header, String
 
-# <node name="assign5" pkg="YuhasK" type="assign5.py" />
 
 #TODO: if I add back in the nav stuff, add this to launch file
 #<include file="/opt/ros/indigo/share/turtlebot_navigation/launch/amcl_demo.launch">
@@ -20,7 +19,6 @@ from std_msgs.msg import Header, String
 class voice_cmd_vel():
 	def __init__(self):
         	rospy.on_shutdown(self.cleanup)
-
 		# goals to use throughout program
 		#TODO: replace with actual pose coordinates
 		goal1 = PoseStamped(pose=Pose(1,1,1))
@@ -28,19 +26,15 @@ class voice_cmd_vel():
 		goal3 = PoseStamped(pose=Pose(1,1,1))
 		goal4 = PoseStamped(pose=Pose(1,1,1))
 		self.goals= [goal1, goal2, goal3, goal4]
-
 		# create publishers
 		self.moveBasePub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=10)
 		self.cmdVelPub = rospy.Publisher('/cmd_vel_mux/input/teleop', Twist, queue_size=10)
-		
         	# subscribe to speech output and amcl pose
         	rospy.Subscriber('recognizer/output', String, self.speechCb)
         	self.poseSub = rospy.Subscriber('/amcl_pose', PoseWithCovarianceStamped, self.set_pose)
-
 		# robot pose
 		self.robotPose = None
-
-        	time.sleep(1) #give publishers time to get set up
+		time.sleep(1) #give publishers time to get set up
         
 	def set_pose(self, data):
 		self.robotPose = data.pose.pose

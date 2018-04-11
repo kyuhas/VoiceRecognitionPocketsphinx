@@ -6,7 +6,7 @@
     <param name="lm" value="/home/kyuhas/catkin_ws/src/YuhasK/src/params/9278.lm"/>
     <param name="dict" value="/home/kyuhas/catkin_ws/src/YuhasK/src/params/9278.dic"/>
   </node>
-  
+
   <node name="assign5" pkg="YuhasK" type="assign5.py" />
 
 
