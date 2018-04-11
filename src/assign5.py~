@@ -9,6 +9,14 @@ from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion, PoseWithCova
 from move_base_msgs.msg import MoveBaseGoal
 from std_msgs.msg import Header, String
 
+# <node name="assign5" pkg="YuhasK" type="assign5.py" />
+
+#TODO: if I add back in the nav stuff, add this to launch file
+#<include file="/opt/ros/indigo/share/turtlebot_navigation/launch/amcl_demo.launch">
+    #<arg name="map_file" value="/home/kyuhas/catkin_ws/src/YuhasK/src/params/map.yaml" />
+  #</include>
+
+
 class voice_cmd_vel:
 
     def __init__(self):
@@ -21,11 +29,6 @@ class voice_cmd_vel:
 	goal3 = PoseStamped(pose=Pose(1,1,1))
 	goal4 = PoseStamped(pose=Pose(1,1,1))
 	self.goals= [goal1, goal2, goal3, goal4]
-		
-	# decoder and stream information
-	modeldir = "../../../model"
-	dictionary = "./TAR5777/5777.dic"
-	languageModel = "./TAR5777/5777.lm"
 
 	# create publishers
 	self.moveBasePub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=10)
@@ -41,7 +44,7 @@ class voice_cmd_vel:
         time.sleep(1) #give publishers time to get set up
         
             
-    def self.set_pose(self, data):
+    	def self.set_pose(self, data):
 		self.robotPose = data.pose.pose
 		
 	def waitUntilGoalReached(self, goalPose):
@@ -68,31 +71,34 @@ class voice_cmd_vel:
 		self.cmdVelPub.publish(twistMsg)
     
     def speechCb(self, msg):
+	if "stop" in msg.data:
+		print 'hello there!'
         if msg.data.find("stop") > -1:
-            # stop the robot
-			self.sendCmdVel(0,0)
+            	# stop the robot
+		self.sendCmdVel(0,0)
+		print 'stop!'
         elif msg.data.find("turn left") > -1:
-            # turn robot left
-			self.sendCmdVel(0, -0.2)
+            	# turn robot left
+		self.sendCmdVel(0, -0.2)
         elif msg.data.find("turn right") > -1:    
-            # turn robot right
-			self.sendCmdVel(0, 0.2)
+            	# turn robot right
+		self.sendCmdVel(0, 0.2)
         elif msg.data.find("move forward") > -1:
-            # move robot forward
-			self.sendCmdVel(0.5, 0)
+            	# move robot forward
+		self.sendCmdVel(0.5, 0)
         elif msg.data.find("move backward") > -1:    
-            # move robot backward
-			self.sendCmdVel(-0.5, 0)
+            	# move robot backward
+		self.sendCmdVel(-0.5, 0)
         elif msg.data.find("go to position") > -1:
             # move to whatever position is designated in the hyp (i.e. one, two, three, etc)
-			if msg.data.find("one") > -1:
-				self.goToGoalPosition(1)
-			elif msg.data.find("two") > -1:
-				self.goToGoalPosition(2)
-			elif msg.data.find("three") > -1:
-				self.goToGoalPosition(3)
-			elif msg.data.find("four") > -1:
-				self.goToGoalPosition(4)
+			#if msg.data.find("one") > -1:
+			#	self.goToGoalPosition(1)
+			#elif msg.data.find("two") > -1:
+			#	self.goToGoalPosition(2)
+			#elif msg.data.find("three") > -1:
+			#	self.goToGoalPosition(3)
+			#elif msg.data.find("four") > -1:
+			#	self.goToGoalPosition(4)
 
     def cleanup(self):
         self.sendCmdVel(0,0)

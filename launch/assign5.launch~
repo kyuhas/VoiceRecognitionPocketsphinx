@@ -1,18 +1,13 @@
 <launch>
   <include file="/opt/ros/indigo/share/turtlebot_bringup/launch/minimal.launch" />
-  <include file="/opt/ros/indigo/share/turtlebot_navigation/launch/amcl_demo.launch">
-    <arg name="map_file" value="/home/kyuhas/catkin_ws/src/YuhasK/src/params/map.yaml" />
-  </include>
+  
 
-  <node name="recognizer" pkg="pocketsphinx" type="recognizer.py">
+  <node name="recognizer" pkg="pocketsphinx" type="recognizer.py" output="screen">
     <param name="lm" value="/src/params/9278.lm"/>
     <param name="dict" value="/src/params/9278.dic"/>
   </node>
   
-<<<<<<< HEAD
-  <node name="voice_cmd_vel" pkg="YuhasK" type="assign5.py" />
-=======
   <node name="assign5" pkg="YuhasK" type="assign5.py" />
->>>>>>> 9cd83124d5a6fb1563ad63148d99d3fee9835743
+
 
 </launch>
