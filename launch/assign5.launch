@@ -9,6 +9,6 @@
     <param name="dict" value="/src/params/9278.dic"/>
   </node>
   
-  <node name="voice_cmd_vel" pkg="pocketsphinx" type="assign5.py" />
+  <node name="voice_cmd_vel" pkg="YuhasK" type="assign5.py" />
 
 </launch>

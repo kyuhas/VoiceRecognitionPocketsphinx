@@ -5,10 +5,10 @@
   </include>
 
   <node name="recognizer" pkg="pocketsphinx" type="recognizer.py">
-    <param name="lm" value="/src/params/voice_cmd.lm"/>
-    <param name="dict" value="/src/params/voice_cmd.dic"/>
+    <param name="lm" value="/src/params/9278.lm"/>
+    <param name="dict" value="/src/params/9278.dic"/>
   </node>
   
-  <node name="voice_cmd_vel" pkg="pocketsphinx" type="assign5.py" />
+  <node name="voice_cmd_vel" pkg="pocketsphinx" type="src/assign5.py" />
 
 </launch>
