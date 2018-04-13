@@ -20,7 +20,7 @@ class voice_cmd_vel():
 		self.cmd = "stop"
 
 		time.sleep(1) #give publisher time to get set up
-		rospy.spin()
+		#rospy.spin()
 
 	def executeCmd(self, cmdStr):
 		if "stop" in cmdStr:
@@ -30,19 +30,19 @@ class voice_cmd_vel():
 		elif "turn left" in cmdStr:
 			# turn robot left
 			self.cmd = "turn left"
-			self.sendCmdVel(0, -0.2)
+			self.sendCmdVel(0, 0.5)
 		elif "turn right" in cmdStr:    
 			# turn robot right
 			self.cmd = "turn right"
-			self.sendCmdVel(0, 0.2)
+			self.sendCmdVel(0, -0.5)
 		elif "move forward" in cmdStr:
 			# move robot forward
 			self.cmd = "move forward"
-			self.sendCmdVel(0.5, 0)
+			self.sendCmdVel(0.3, 0)
 		elif "move backward" in cmdStr:    
 			# move robot backward
 			self.cmd = "move backward"
-			self.sendCmdVel(-0.5, 0)
+			self.sendCmdVel(-0.3, 0)
 	
 	def sendCmdVel(self, linear, angular):
 		twistMsg = Twist()
@@ -57,21 +57,17 @@ class voice_cmd_vel():
         	self.sendCmdVel(0,0)
 
 	#TODO: uncomment this out once 
-	#def run(self):
-		#count = 1
+	def run(self):
 		# keep calling the same command while the robot is running
-		# however, limit it with a counter so that it doesn't do it too much
-		#while True:
-			#if count%100 == 0:
-				#self.executeCmd(self.cmd)
-				#count = 1
-			#else:
-				#count = count + 1
+		r = rospy.Rate(10)
+		while True:
+			self.executeCmd(self.cmd)
+			r.sleep()
 
 if __name__=="__main__":
     rospy.init_node('voice_cmd_vel')
     try:
-        voice_cmd_vel()#.run()
+        voice_cmd_vel().run()
     except:
         pass
 
