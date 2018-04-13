@@ -1,13 +1,13 @@
 <launch>
-  <include file="/opt/ros/indigo/share/turtlebot_bringup/launch/minimal.launch" />
+ 
   
 
   <node name="recognizer" pkg="pocketsphinx" type="recognizer.py" output="screen">
     <param name="lm" value="/home/kyuhas/catkin_ws/src/YuhasK/src/params/9278.lm"/>
     <param name="dict" value="/home/kyuhas/catkin_ws/src/YuhasK/src/params/9278.dic"/>
   </node>
-  
-  <node name="assign5" pkg="YuhasK" type="assign5.py" />
+
+ 
 
 
 </launch>
