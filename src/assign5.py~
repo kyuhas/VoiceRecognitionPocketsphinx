@@ -20,7 +20,7 @@ class voice_cmd_vel():
 		self.cmd = "stop"
 
 		time.sleep(1) #give publisher time to get set up
-		rospy.spin()
+		#rospy.spin()
 
 	def executeCmd(self, cmdStr):
 		if "stop" in cmdStr:
@@ -55,8 +55,7 @@ class voice_cmd_vel():
 
     	def cleanup(self):
         	self.sendCmdVel(0,0)
-
-	#TODO: uncomment this out once 
+ 
 	def run(self):
 		# keep calling the same command while the robot is running
 		r = rospy.Rate(10)
